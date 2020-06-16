@@ -44,7 +44,7 @@
         data: {
             message: "",
             reponse: [],
-            username:"Annonyme",
+            username:"Admin Dago",
         
 
         },
@@ -58,7 +58,8 @@
            
             connect() {
                 roomName = "salon"
-                this.socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + roomName + '/');
+                //this.socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + roomName + '/');
+                this.socket = new WebSocket('ws://172.20.10.5:8000/ws/chat/' + roomName + '/');
                 this.socket.onopen = () => {
                     this.status = "connected";
                     console.log("connecte")
