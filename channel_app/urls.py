@@ -6,5 +6,6 @@ app_name = 'channel_app'
 urlpatterns = [
     path('', views.home, name='home'),
     path('chatapp/', views.chat, name='chat'),
+    path('tchat/', views.tchat, name='tchat'),
 
 ]

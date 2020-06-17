@@ -14,3 +14,8 @@ def chat(request):
 
     data={}
     return render(request, 'chat.html',data)
+
+def tchat(request):
+    
+    data={}
+    return render(request, 'tchat.html',data)
