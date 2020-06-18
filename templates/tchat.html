@@ -30,38 +30,37 @@
             <div  id="contacts">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                     <li  class="contact nav-item" role="presentation">
-                        <a v-on:click.prevent='groupe(1)' class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+                        <a v-on:click.prevent='groupe(0)' class="nav-link" id="nan-tab" data-toggle="pill" href="#nan" role="tab" aria-controls="nan" aria-selected="true">
                             <div class="wrap">
                                 <span class="contact-status online"></span>
-                                <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                                <img src="https://nan.nan.ci/static/ressources/images/logo-nan.png" alt="" />
                                 <div class="meta">
-                                    <p class="name">Louis Litt</p>
-                                    <p class="preview">You just got LITT up, Mike.</p>
+                                    <p class="name">NaN </p>
+                                    <p class="preview">Not a Number</p>
                                 </div>
                             </div>
                         </a>
-                        
                     </li>
                     <li class="contact nav-item" role="presentation">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                        <a v-on:click.prevent='groupe(1)' class="nav-link" id="django-tab" data-toggle="pill" href="#django" role="tab" aria-controls="django" aria-selected="false">
                             <div class="wrap">
                                 <span class="contact-status busy"></span>
-                                <img src="http://emilcarlsson.se/assets/katrinabennett.png" alt="" />
+                                <img src="https://miro.medium.com/max/3840/1*T_pC3-Is47lztWPspLvR9Q.jpeg" alt="" />
                                 <div class="meta">
-                                    <p class="name">Katrina Bennett</p>
-                                    <p class="preview">I've sent you the files for the Garrett trial.</p>
+                                    <p class="name">Django</p>
+                                    <p class="preview">Python - Django</p>
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="contact nav-item" role="presentation">
-                        <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">
+                        <a v-on:click.prevent='groupe(2)' class="nav-link" id="flutter-tab" data-toggle="pill" href="#flutter" role="tab" aria-controls="flutter" aria-selected="false">
                             <div class="wrap">
                                 <span class="contact-status"></span>
-                                <img src="http://emilcarlsson.se/assets/charlesforstman.png" alt="" />
+                                <img src="https://ih1.redbubble.net/image.1057190214.1918/flat,750x1000,075,f.jpg" alt="" />
                                 <div class="meta">
-                                    <p class="name">Charles Forstman</p>
-                                    <p class="preview">Mike, this isn't over.</p>
+                                    <p class="name">Flutter</p>
+                                    <p class="preview">Mobile .</p>
                                 </div>
                             </div>
                         </a>
@@ -85,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane messages fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="tab-pane messages fade" id="flutter" role="tabpanel" aria-labelledby="flutter-tab">
                 <ul>
                     <li class="sent">
                         <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
@@ -116,17 +115,26 @@
                         </div>
                     </li>
                     <li v-for='item in reponse' class="sent">
-                        <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                        <div class="sms ">
-                            <p class="col-md-12" style="padding-left: 9px;">${item.mes}</p>
-                            <p class="col-md-12" style="text-align: right;">${item.heure}</p>
+                        <div v-if=" item.groupe == 'Flutter' ">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <div class="sms ">
+                                <p class="col-md-12" style="padding-left: 9px;">${item.mes}</p>
+                                <p class="col-md-12" style="text-align: right;">${item.heure}</p>
+                            </div>
                         </div>
                         
                     </li>
                 </ul>
+                <div class="message-input">
+                    <div class="wrap">
+                    <input v-model="message" type="text" placeholder="Ecrire message Flutter" />
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button @click="sendmessage()" type="button" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    </div>
+                </div>
             </div>
 
-            <div class="tab-pane messages fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="tab-pane messages fade" id="django" role="tabpanel" aria-labelledby="django-tab">
                 <ul>
                     <li class="sent">
                         <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
@@ -142,16 +150,70 @@
                             <p class="col-md-12" style="text-align: right;">02:31</p>
                         </div>
                     </li>
+                    <li v-for='item in reponse' class="sent">
+                        <div v-if=" item.groupe == 'Django' ">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <div class="sms ">
+                                <p class="col-md-12" style="padding-left: 9px;">${item.mes}</p>
+                                <p class="col-md-12" style="text-align: right;">${item.heure}</p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-            </div>
 
-            <div class="message-input">
-                <div class="wrap">
-                <input v-model="message" type="text" placeholder="Write your message..." />
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button @click="sendmessage" type="button" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <div class="message-input">
+                    <div class="wrap">
+                    <input v-model="message" type="text" placeholder="Ecrire message Django" />
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button @click="sendmessage()" type="button" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    </div>
                 </div>
             </div>
+
+            <div class="tab-pane messages fade" id="nan" role="tabpanel" aria-labelledby="nan-tab">
+                <ul>
+                    <li class="sent">
+                        <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                        <div class="sms ">
+                            <p class="col-md-12" style="padding-left: 9px;">How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                            <p class="col-md-12" style="text-align: right;">02:31</p>
+                        </div>
+                    </li>
+                    <li class="replies">
+                        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                        <div class="sms ">
+                                <p class="col-md-12" style="padding-left: 9px;">When you're backed against the wall, break the god damn thing down.</p>
+                                <p class="col-md-12" style="text-align: right;">02:31</p>
+                            </div>
+                    </li>
+                    <li class="sent">
+                        <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                        <div class="sms ">
+                            <p class="col-md-12" style="padding-left: 9px;">Oh yeah, did Michael Jordan tell you that?</p>
+                            <p class="col-md-12" style="text-align: right;">02:31</p>
+                        </div>
+                    </li>
+                    <li v-for='item in reponse' class="sent">
+                        <div v-if=" item.groupe == 'NaN' ">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <div class="sms ">
+                                <p class="col-md-12" style="padding-left: 9px;">${item.mes}</p>
+                                <p class="col-md-12" style="text-align: right;">${item.heure}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="message-input">
+                    <div class="wrap">
+                    <input v-model="message" type="text" placeholder="Ecrire message NaN" />
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button @click="sendmessage()" type="button" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            
 
         </div>
     </div>
@@ -173,6 +235,8 @@
                 message: "",
                 reponse: [],
                 username:"Dago",
+                roomName: ["NaN","Django","Flutter"],
+                nomGroupe:"",
                 date:'',
                 heure:'',
                 minute:'',
@@ -181,19 +245,29 @@
             delimiters: ["${", "}"],
             mounted: function() {
                 
+                this.groupe()
                 this.connect()
              
             },
             methods: {
 
                 groupe: function(id){
-                    console.log(id);
+                    if(this.nomGroupe){
+                        this.nomGroupe = this.roomName[id];
+                    }else{
+                        this.nomGroupe = 'NaN';
+                    };
+                    
+                    console.log(this.nomGroupe);
+                    
                 },
                
-                connect() {
-                    roomName = "NaN"
+                connect: function() {
+                    
+                    
                     //this.socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + roomName + '/');
-                    this.socket = new WebSocket('ws://172.20.10.5:8000/ws/chat/' + roomName + '/');
+                    //this.socket = new WebSocket('ws://192.168.1.111:8000/ws/chat/' + this.nomGroupe + '/');
+                    this.socket = new WebSocket('ws://172.20.10.5:8000/ws/chat/' + this.nomGroupe + '/');
                     this.socket.onopen = () => {
                         this.status = "connected";
                         console.log("connecte")
@@ -227,13 +301,15 @@
                         this.heure = '0'+ this.heure;
                     };
 
-
                     this.username = '{{request.user.username}}';
                     console.log(this.username + '++++++++++')
                     data = {
-                        'message':{ 'mes':this.message,
-                        'user':this.username,
-                        'heure': this.heure + ':'+ this.minute}
+                        'message':{ 
+                            'groupe': this.nomGroupe,
+                            'mes':this.message,
+                            'user':this.username,
+                            'heure': this.heure + ':'+ this.minute
+                        }
                     }
                         this.socket.send(JSON.stringify(data));
                         
