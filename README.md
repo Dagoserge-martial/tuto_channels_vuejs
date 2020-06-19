@@ -2263,3 +2263,122 @@
    
 </body>
 </html>
+
+
+# selet22
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Selct 2</h1>
+    <div class="container">
+        <div class="header clearfix">
+          <h3 class="text-muted">
+            Select2 Cascade Demo
+            <small>For <a href="http://ajaxray.com/blog/select2-dependent-cascading-select-list-reload/" target="_blank">this post</a></small>
+          </h3>
+        </div>
+  
+        <div class="row">
+          <div class="col-sm-12">
+            
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="type" class="col-sm-5 control-label">I'd like to ride</label>   
+                <div class="col-sm-5">
+                  <select name="type" id="type" class="form-control">
+                    <option>--Select your ride--</option>
+                    <option value="animals">Animal</option>
+                    <option value="vehicles">Vehicle</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="subtype" class="col-sm-5 control-label">More specifically</label>       
+                <div class="col-sm-5">
+                  <select name="subtype" id="subtype"  class="form-control">
+                      <option>-- Select type first--</option>
+                  </select>
+                </div>
+              </div>         
+            </form>        
+        
+          </div>
+        </div>
+  
+      </div> <!-- /container -->
+
+        <script src="script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"  crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+        
+        
+<script>
+
+    var Select2Cascade = ( function(window, $) {
+
+        function Select2Cascade(parent, child, url, select2Options) {
+            var afterActions = [];
+            var options = select2Options || {};
+
+            // Register functions to be called after cascading data loading done
+            this.then = function(callback) {
+                afterActions.push(callback);
+                return this;
+            };
+
+            parent.select2(select2Options).on("change", function (e) {
+
+                child.prop("disabled", true);
+
+                var _this = this;
+                $.getJSON(
+                    url.replace(':parentId:', $(this).val()), 
+                    console.log($(this).val()),
+                    function(items) {
+                        var newOptions = '<option value="">-- Select --</option>';
+                        for(var id in items) {
+                            newOptions += '<option value="'+ id +'">'+ items[id] +'</option>';
+                        }
+
+                        child.select2('destroy').html(newOptions).prop("disabled", false)
+                            .select2(options);
+                        
+                        afterActions.forEach(function (callback) {
+                            callback(parent, child, items);
+                        });
+                    });
+            });
+        }
+
+        return Select2Cascade;
+
+    })( window, $);
+
+    $(document).ready(function() {
+        var select2Options = { width: 'resolve' };
+        // Loading raw JSON files of a secret gist - https://gist.github.com/ajaxray/32c5a57fafc3f6bc4c430153d66a55f5
+        var apiUrl =  'https://gist.githubusercontent.com/ajaxray/32c5a57fafc3f6bc4c430153d66a55f5/raw/260a653e6347fb6d2360e8ec376a2dc4888c1afa/:parentId:.json'; 
+        //var apiUrl = 'animals.json'
+
+        $('select').select2(select2Options);                 
+        var cascadLoading = new Select2Cascade($('#type'), $('#subtype'), apiUrl, select2Options);
+        cascadLoading.then( function(parent, child, items) {
+            // Dump response data
+            console.log(items);
+        });
+    });
+
+
+</script>
+    
+</body>
+</html>
