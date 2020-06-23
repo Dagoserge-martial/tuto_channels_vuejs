@@ -16,6 +16,10 @@ def chat(request):
     return render(request, 'chat.html',data)
 
 def tchat(request):
+    user = request.user.username
+    print(user, 'uuuuuuuuu')
     
-    data={}
+    data={
+        'user': user,
+    }
     return render(request, 'tchat.html',data)
